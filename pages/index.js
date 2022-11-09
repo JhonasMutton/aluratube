@@ -3,14 +3,16 @@ import styled from "styled-components"
 import Menu from "../src/components/Menu"
 import { CSSReset } from "../src/components/CSSReset"
 import { StyledTimeline } from "../src/components/Timeline"
+import { StyledFavorites } from "../src/components/Favorites"
 function HomePage() {
     return (
         <>
             <CSSReset />
             <div>
                 <Menu />
-                <Header />
+                <Header banner={config.banner} />
                 <Timeline playlists={config.playlists} />
+                <Favorites favorites={config.favorites} />
             </div>
         </>
 
@@ -26,21 +28,27 @@ const StyledHeader = styled.div`
         border-radius: 50%;
     }
     .user-info {
-        margin-top: 50px;
         display: flex;
         align-items: center;
         width: 100%;
         padding: 16px 32px;
         gap: 16px;
-
     }
+    .banner { 
+     width: 100%;
+     height: 250px; 
+     margin-top: 50px; 
+     border-radius: 0%; 
+     opacity: 100% 
+}
 
 `;
 
-function Header() {
+function Header(banner) {
+    console.log("banner", banner)
     return (
         <StyledHeader>
-            {/* <img src="img"/> */}
+            <img className="banner" src={"https://www.conceptseating.com/wp-content/uploads/2021/01/Market-Programming-Banner.jpg"} />
             <section className="user-info">
                 <img src={`https://github.com/${config.github}.png`} />
                 <div>
@@ -75,4 +83,21 @@ function Timeline({ playlists }) {
             )
         }
     </StyledTimeline>
+}
+
+function Favorites(favorites) {
+    console.log("favo", favorites)
+    return (
+        <StyledFavorites>
+                <h2> AluraTubers Favoritos</h2>
+                <div>
+                    {favorites.favorites.map((favorite) =>
+                        <div>
+                            <img src={favorite.avatar} />
+                            <span> {favorite.name} </span>
+                        </div>)
+                    }
+                </div>
+        </StyledFavorites>
+    )
 }
